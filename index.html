@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Year Anniversary</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            background: linear-gradient(45deg, #ff6699, #d6336c, #ff3366);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            animation: glow 2s infinite alternate;
+            text-shadow: 0 0 10px #ff6699, 0 0 20px #ff3366, 0 0 30px #ff6699;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff6699; }
+            to { text-shadow: 0 0 20px #ff3366; }
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.5s ease-in-out;
+            z-index: 10;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        button {
+            background-color: #ff6699;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff3366;
+        }
+
+        button::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            transition: transform 0.4s;
+        }
+
+        button:active::after {
+            transform: scale(2);
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding-top: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+            opacity: 0;
+            transform: scale(0.8) rotate(-10deg);
+            transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+        }
+
+        .gallery img.show {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: heartfall 3s linear infinite;
+            color: #ff6699;
+        }
+
+        @keyframes heartfall {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 70%;
+        }
+
+        .modal-content p {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #ff6699;
+        }
+
+        audio {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy 3 Year Anniversary MyLove!❤️</h1>
+        <p>Four years of love, laughter, and memories. Here's to forever!</p>
+
+        <button onclick="showQuote()">Click for a Love Quote</button>
+        <p id="quote"></p>
+
+        <button onclick="showMemory(1)">Show Memory 2022</button>
+        <button onclick="showMemory(2)">Show Memory 2023</button>
+        <button onclick="showMemory(3)">Show Memory 2024</button>
+        <button onclick="showMemory(4)">Show Memory 2025</button>
+        
+        <div class="gallery">
+            <img id="mem1" src="WhatsApp Image 2025-04-01 at 21.02.19_0cd8ec98.jpg" alt="Memory 1">
+            <img id="mem2" src="WhatsApp Image 2025-04-01 at 21.03.17_bef45dcc.jpg" alt="Memory 2">
+            <img id="mem3" src="WhatsApp Image 2025-04-01 at 21.05.08_c55307c0.jpg" alt="Memory 3">
+            <img id="mem4" src="WhatsApp Image 2025-04-01 at 21.06.18_099b8e9d.jpg" alt="Memory 4">
+        </div>
+
+        <button onclick="openModal()">Open Special Message</button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>My love, every day with you is a dream come true. Here's to forever together! 💖</p>
+        </div>
+    </div>
+
+    <script>
+        function showQuote() {
+            const quotes = [
+                "You are my today and all of my tomorrows.",
+                "I love you more than words can express.",
+                "Every love story is beautiful, but ours is my favorite.",
+                "Four years down, forever to go!"
+            ];
+            let quoteElement = document.getElementById('quote');
+            quoteElement.innerHTML = '';
+            let quote = quotes[Math.floor(Math.random() * quotes.length)];
+            let i = 0;
+            function typeWriter() {
+                if (i < quote.length) {
+                    quoteElement.innerHTML += quote.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            typeWriter();
+        }
+
+        function showMemory(num) {
+            const quotes = [
+                "2022: Our first trip together. A memory we'll always cherish!",
+                "2023: A year full of laughter and unforgettable moments.",
+                "2024: We celebrated milestones and created even more beautiful memories.",
+                "2025: A year full of new beginnings and continuing our journey together."
+            ];
+
+            let img = document.getElementById(`mem${num}`);
+            img.classList.toggle("show");
+
+            // Show the corresponding quote
+            let quoteElement = document.getElementById('quote');
+            quoteElement.innerHTML = quotes[num - 1];
+        }
+
+        function createHearts() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHearts, 500);
+
+       
+
+        function openModal() {
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
